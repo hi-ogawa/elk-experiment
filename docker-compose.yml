@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  elasticsearch:
+    image: elasticsearch:2.3.5
+
+  logstash:
+    image: logstash:2.3.4
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash.conf:/etc/logstash/conf.d/logstash.conf
+      - ./logstash-tutorial.log:/logstash-tutorial.log
+
+  kibana:
+    image: kibana:4.5.4
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana.yml:/opt/kibana/config/kibana.yml
